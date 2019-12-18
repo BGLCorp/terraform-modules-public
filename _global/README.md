@@ -3,14 +3,14 @@ All files in this folder should start with a unique filename prefix. They are de
 terraform {
   source = "git::..."
 
-  after_hook "copy_global_providers" {
+  after_hook "copy_global_data" {
     commands = ["init-from-module"]
-    execute  = ["cp", "${get_terragrunt_dir()}/../../../../terraform/modules/_global/_global_providers.tf", "."]
+    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/samer-shami/terraform-modules-public/v0.0.1/_global/_regional_data.tf", "."]
   }
 
-  after_hook "copy_global_variables" {
+  after_hook "copy_global_providers" {
     commands = ["init-from-module"]
-    execute  = ["cp", "${get_terragrunt_dir()}/../../../../terraform/modules/_global/_global_variables.tf", "."]
+    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/samer-shami/terraform-modules-public/v0.0.1/_global/_global_providers.tf", "."]
   }
  ...
 ```
