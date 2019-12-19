@@ -5,13 +5,14 @@ terraform {
 
   after_hook "copy_global_data" {
     commands = ["init-from-module"]
-    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/samer-shami/terraform-modules-public/v0.0.1/_global/_regional_data.tf", "."]
+    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/BGLCorp/terraform-modules-public/v0.0.1/_global/_regional_data.tf"]
   }
 
   after_hook "copy_global_providers" {
     commands = ["init-from-module"]
-    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/samer-shami/terraform-modules-public/v0.0.1/_global/_global_providers.tf", "."]
+    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/BGLCorp/terraform-modules-public/v0.0.1/_global/_global_providers.tf"]
   }
+
  ...
 ```
 
