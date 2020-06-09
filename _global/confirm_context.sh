@@ -2,6 +2,11 @@
 
 CURRENT_CONTEXT=$(kubectl config current-context | tr -d '\n')
 
+if [[ "${CURRENT_CONTEXT}" = "" ]]; then
+    echo "No current context => No issues"
+    exit 0
+fi
+
 if [[ "${CURRENT_CONTEXT}" = *${1} ]]; then
     if [[ "${CURRENT_CONTEXT}" = *${2}* ]]; then
         echo "Current context '${CURRENT_CONTEXT}' ends with the input '${1}' and has the right account id ${2}"
