@@ -10,7 +10,7 @@ terraform {
 
   after_hook "copy_global_providers" {
     commands = ["init-from-module"]
-    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/jgournet/terraform-modules-public/master/_global/_global_providers.tf"]
+    execute  = ["wget", "-qN", "https://raw.githubusercontent.com/BGLCorp/terraform-modules-public/v0.0.5/_global/_global_providers.tf"]
   }
 
  ...
