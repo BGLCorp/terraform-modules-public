@@ -31,3 +31,24 @@ To import from this module you can include the following (or parts of it):
 ```
 from BGLshared.flaskapp import create_health, create_post
 ```
+
+## Private repo
+If this package needs to be moved to a private repository, docker build processes will need to be updated as the builder does not by default have access to the SSH key.
+
+To grant access to the host SSH key (without passing it in a layer) the --ssh flag can be used with docker buildx.
+The following file should also be created as `config` to be copied into the docker container:
+```
+Host github.com
+  StrictHostKeyChecking no
+  IdentityFile /home/epalchan/.ssh/id_ed25519
+```
+
+And in the Dockerfile the following lines should be added:
+```
+RUN apk add --no-cache git openssh-client openssh-keyscan
+RUN mkdir -p -m 0600 /root/.ssh
+RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+COPY config /root/.ssh
+RUN --mount=type=ssh pip install -r requirements.txt
+RUN apk del git openssh-client openssh-keyscan && rm -rf /root.ssh
+```
