@@ -2,9 +2,6 @@ import logging
 import datetime
 import os
 from pythonjsonlogger import jsonlogger
-logging.basicConfig(
-    level=os.getenv('LOG_LEVEL', default='INFO').upper()
-)
 
 # Add custom logging
 class CustomJsonFormatter(jsonlogger.JsonFormatter):
@@ -27,6 +24,7 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
 
 
 logger = logging.getLogger()
+logger.setLevel(level=os.getenv('LOG_LEVEL', default='INFO').upper())
 logHandler = logging.StreamHandler()
 formatter = CustomJsonFormatter('%(message)s %(level)s %(logger)s %(timestamp)s %(stack_trace)s')
 logHandler.setFormatter(formatter)
