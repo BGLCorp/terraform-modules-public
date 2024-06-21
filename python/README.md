@@ -2,7 +2,7 @@
 
 ## How to install
 to install the package include the following line in your requirements file or run `pip install` on it-
-`BGLshared @ git+ssh://git@github.com:BGLCorp/terraform-modules-public.git@master#subdirectory=python`
+`BGLshared @ git+https://git@github.com:BGLCorp/terraform-modules-public.git@master#subdirectory=python`
 
 ## Included packages and how to import them
 ### Logging
