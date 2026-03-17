@@ -1,5 +1,3 @@
-from flask import Flask, request
-from cloudevents.http import from_http
 from .logging import logHandler
 
 
@@ -7,6 +5,7 @@ def create_health():
     """
     Create a basic Flask app with only kube health endpoints and default logging configuration
     """
+    from flask import Flask
     app = Flask(__name__)
     app.logger.handlers = logHandler
 
@@ -21,6 +20,8 @@ def create_health():
     return app
 
 def create_post(func):
+    from flask import request
+    from cloudevents.http import from_http
     app = create_health()
 
     @app.route("/", methods=["POST"])
@@ -30,5 +31,5 @@ def create_post(func):
         # call a main() function on the cloudevent
         resp = func.main(event)
         return resp
-    
+
     return app
