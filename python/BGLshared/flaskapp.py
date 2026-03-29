@@ -21,7 +21,7 @@ def create_health():
 
 def create_post(func):
     from flask import request
-    from cloudevents.http import from_http
+    from cloudevents.core.bindings.http import from_http
     app = create_health()
 
     @app.route("/", methods=["POST"])
