@@ -7,7 +7,7 @@ def create_health():
     """
     from flask import Flask
     app = Flask(__name__)
-    app.logger.handlers = logHandler
+    app.logger.handlers = [logHandler]
 
     @app.route("/health/liveness")
     def liveness():
@@ -27,7 +27,7 @@ def create_post(func):
     @app.route("/", methods=["POST"])
     def home():
         # create a CloudEvent
-        event = from_http(request.headers, request.get_data())
+        event = from_http(request, request.get_data())
         # call a main() function on the cloudevent
         resp = func.main(event)
         return resp
