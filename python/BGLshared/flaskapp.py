@@ -24,10 +24,15 @@ def create_post(func):
     from cloudevents.core.bindings.http import from_http
     app = create_health()
 
+    class _Message:
+        def __init__(self, req):
+            self.headers = req.headers
+            self.body = req.get_data()
+
     @app.route("/", methods=["POST"])
     def home():
-        # create a CloudEvent
-        event = from_http(request, request.get_data())
+        # create a CloudEvent from the Knative-delivered binary CloudEvent
+        event = from_http(_Message(request))
         # call a main() function on the cloudevent
         resp = func.main(event)
         return resp
