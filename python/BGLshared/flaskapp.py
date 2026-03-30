@@ -21,18 +21,13 @@ def create_health():
 
 def create_post(func):
     from flask import request
-    from cloudevents.core.bindings.http import from_http
+    from cloudevents.core.bindings.http import from_http_event, HTTPMessage
     app = create_health()
-
-    class _Message:
-        def __init__(self, req):
-            self.headers = req.headers
-            self.body = req.get_data()
 
     @app.route("/", methods=["POST"])
     def home():
         # create a CloudEvent from the Knative-delivered binary CloudEvent
-        event = from_http(_Message(request))
+        event = from_http_event(HTTPMessage(headers=dict(request.headers), body=request.get_data()))
         # call a main() function on the cloudevent
         resp = func.main(event)
         return resp
